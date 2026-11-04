@@ -1,12 +1,22 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import "./styles/index.css";
+import App from "./App";
+import { ConnectivityProvider } from "./hooks/useConnectivity";
+import { DeveloperProvider } from "./hooks/useDeveloper";
+import { SettingsProvider } from "./context/SettingsContext";
 
-import "./lib/test-connection";
-
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App />
+    <SettingsProvider>
+      <ConnectivityProvider>
+        <DeveloperProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </DeveloperProvider>
+      </ConnectivityProvider>
+    </SettingsProvider>
   </StrictMode>,
-)
+);

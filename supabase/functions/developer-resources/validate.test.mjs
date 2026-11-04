@@ -1,0 +1,24 @@
+// Run: npm run test:upload  (Node 22+)
+import { validateFields, hasPdfSignature, buildObjectKey, safeFileName } from "./validate.ts";
+const U="123e4567-e89b-42d3-a456-426614174000";
+const mk=(o)=>validateFields((k)=>o[k], new Date("2026-11-04"));
+const t=(n,c)=>console.log(c?"PASS":"FAIL",n);
+t("pyq without year rejected", !mk({subject_id:U,resource_type:"pyq",title:"Paper"}).ok);
+t("pyq year 2023 ok", mk({subject_id:U,resource_type:"pyq",title:"Paper",academic_year:"2023"}).ok);
+t("pyq year 1999 rejected", !mk({subject_id:U,resource_type:"pyq",title:"Paper",academic_year:"1999"}).ok);
+t("pyq year 2028 rejected", !mk({subject_id:U,resource_type:"pyq",title:"Paper",academic_year:"2028"}).ok);
+const n=mk({subject_id:U,resource_type:"notes",title:"Module 1 notes",academic_year:"2023",exam_session:"Dec"});
+t("notes ok & year DROPPED even if sent", n.ok && n.value.year===null && n.value.session===null);
+t("assignment rejected", !mk({subject_id:U,resource_type:"assignment",title:"abc"}).ok);
+t("youtube rejected", !mk({subject_id:U,resource_type:"youtube",title:"abc"}).ok);
+t("bad subject id rejected", !mk({subject_id:"../x",resource_type:"notes",title:"abc"}).ok);
+t("short title rejected", !mk({subject_id:U,resource_type:"notes",title:"ab"}).ok);
+t("bad exam type rejected", !mk({subject_id:U,resource_type:"pyq",title:"abc",academic_year:"2023",exam_type:"x"}).ok);
+const pdf=new TextEncoder().encode("%PDF-1.7\n....");
+t("pdf signature ok", hasPdfSignature(pdf));
+t("html rejected", !hasPdfSignature(new TextEncoder().encode("<html>...........")));
+t("exe rejected", !hasPdfSignature(new Uint8Array([0x4d,0x5a,0x90,0,3,0,0,0,4,0])));
+t("pdf-in-name only rejected", !hasPdfSignature(new TextEncoder().encode("x%PDF-1.7......")));
+t("key safe", buildObjectKey(U,"223e4567-e89b-42d3-a456-426614174000")===`resources/${U}/223e4567-e89b-42d3-a456-426614174000.pdf`);
+let threw=false; try{buildObjectKey("../../etc",U)}catch{threw=true}; t("key traversal throws", threw);
+t("filename sanitised (no leading dots/slashes)", /^[\w][\w.\-]*\.pdf$/.test(safeFileName("../../Data Structures — Dec 2023?.exe")));

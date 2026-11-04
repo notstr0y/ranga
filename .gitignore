@@ -1,17 +1,19 @@
-# Environment variables
+# Environment variables / secrets
 .env
 .env.*
 !.env.example
-
-# Dependencies
-node_modules/
-
-# Build output
-dist/
-
-# Local development
-.DS_Store
 *.local
 
-# Debug logs
+# Dependencies and build output
+node_modules/
+dist/
+dev-dist/
+
+# Supabase CLI local state
+supabase/.temp/
+supabase/.branches/
+
+# Tooling
+.claude/
+.DS_Store
 npm-debug.log*

@@ -1,0 +1,264 @@
+@import "@fontsource-variable/dm-sans";
+@import "@fontsource-variable/jetbrains-mono";
+@import "@fontsource-variable/noto-sans-malayalam";
+@import "@fontsource/shippori-mincho/latin-500.css";
+@import "@fontsource/shippori-mincho/latin-600.css";
+@import "tailwindcss";
+
+/* =============================================================================
+   RANGA Design System — Minimal File Manager (Google Drive-like)
+   Restrained monochrome palette:
+   - Charcoal / near-black surfaces in dark mode, neutral crisp greys
+   - Clean neutral whites and cool slate/greys in light mode
+   - Consistent square / subtly rounded corners (no pill or bubbly shapes)
+   - Real folder file-manager navigation with outlined monochrome icons
+   ========================================================================== */
+
+:root {
+  /* Light Theme — Neutral Monochrome Palette */
+  --md-sys-color-primary: #18181b;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: #f4f4f5;
+  --md-sys-color-on-primary-container: #18181b;
+  --md-sys-color-secondary: #52525b;
+  --md-sys-color-on-secondary: #ffffff;
+  --md-sys-color-secondary-container: #f4f4f5;
+  --md-sys-color-on-secondary-container: #18181b;
+  --md-sys-color-tertiary: #3f3f46;
+  --md-sys-color-on-tertiary: #ffffff;
+  --md-sys-color-tertiary-container: #f4f4f5;
+  --md-sys-color-on-tertiary-container: #18181b;
+  --md-sys-color-surface: #ffffff;
+  --md-sys-color-on-surface: #111827;
+  --md-sys-color-on-surface-variant: #6b7280;
+  --md-sys-color-surface-container-lowest: #ffffff;
+  --md-sys-color-surface-container-low: #f9fafb;
+  --md-sys-color-surface-container: #f4f4f5;
+  --md-sys-color-surface-container-high: #e5e7eb;
+  --md-sys-color-surface-container-highest: #d1d5db;
+  --md-sys-color-outline: #9ca3af;
+  --md-sys-color-outline-variant: #e5e7eb;
+  --md-sys-color-error: #dc2626;
+  --md-sys-color-on-error: #ffffff;
+  --md-sys-color-error-container: #fee2e2;
+  --md-sys-color-on-error-container: #7f1d1d;
+
+  /* Folder Colors (Monochrome Light) */
+  --folder-bg: #ffffff;
+  --folder-border: #e5e7eb;
+  --folder-hover-bg: #f4f4f5;
+  --folder-hover-border: #d1d5db;
+  --folder-icon: #4b5563;
+  --folder-text: #111827;
+
+  /* Aliases */
+  --color-paper: var(--md-sys-color-surface);
+  --color-paper-2: var(--md-sys-color-surface-container-low);
+  --color-card: var(--md-sys-color-surface-container-lowest);
+  --color-ink: var(--md-sys-color-on-surface);
+  --color-ink-2: var(--md-sys-color-on-surface-variant);
+  --color-muted: var(--md-sys-color-outline);
+  --color-faint: var(--md-sys-color-outline-variant);
+  --color-line: var(--md-sys-color-outline-variant);
+  --color-line-strong: var(--md-sys-color-outline);
+  --color-accent: var(--md-sys-color-primary);
+
+  /* Shape: Square or subtly rounded corners */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 10px;
+  --radius-2xl: 12px;
+  --radius-3xl: 16px;
+  --radius-full: 9999px;
+
+  /* Minimal Elevations */
+  --shadow-m3-1: 0 1px 2px 0 rgb(0 0 0 / 0.04);
+  --shadow-m3-2: 0 2px 4px 0 rgb(0 0 0 / 0.06);
+  --shadow-m3-3: 0 4px 6px -1px rgb(0 0 0 / 0.08);
+  --shadow-dialog: 0 10px 25px -5px rgb(0 0 0 / 0.12), 0 8px 10px -6px rgb(0 0 0 / 0.08);
+}
+
+/* Dark Theme — Deep Charcoal / Graphite Palette */
+html.dark, html[data-theme="dark"] {
+  --md-sys-color-primary: #f4f4f5;
+  --md-sys-color-on-primary: #18181b;
+  --md-sys-color-primary-container: #27272a;
+  --md-sys-color-on-primary-container: #f4f4f5;
+  --md-sys-color-secondary: #a1a1aa;
+  --md-sys-color-on-secondary: #18181b;
+  --md-sys-color-secondary-container: #27272a;
+  --md-sys-color-on-secondary-container: #f4f4f5;
+  --md-sys-color-tertiary: #d4d4d8;
+  --md-sys-color-on-tertiary: #18181b;
+  --md-sys-color-tertiary-container: #27272a;
+  --md-sys-color-on-tertiary-container: #f4f4f5;
+  --md-sys-color-surface: #0e1013;
+  --md-sys-color-on-surface: #f3f4f6;
+  --md-sys-color-on-surface-variant: #9ca3af;
+  --md-sys-color-surface-container-lowest: #08090b;
+  --md-sys-color-surface-container-low: #121418;
+  --md-sys-color-surface-container: #181b21;
+  --md-sys-color-surface-container-high: #20242c;
+  --md-sys-color-surface-container-highest: #2a2f3a;
+  --md-sys-color-outline: #4b5563;
+  --md-sys-color-outline-variant: #262a33;
+  --md-sys-color-error: #f87171;
+  --md-sys-color-on-error: #450a0a;
+  --md-sys-color-error-container: #7f1d1d;
+  --md-sys-color-on-error-container: #fecaca;
+
+  /* Folder Colors (Monochrome Dark) */
+  --folder-bg: #14171d;
+  --folder-border: #262a33;
+  --folder-hover-bg: #1e222a;
+  --folder-hover-border: #3b4250;
+  --folder-icon: #9ca3af;
+  --folder-text: #f3f4f6;
+
+  --shadow-m3-1: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow-m3-2: 0 2px 4px 0 rgb(0 0 0 / 0.4);
+  --shadow-m3-3: 0 4px 6px -1px rgb(0 0 0 / 0.5);
+  --shadow-dialog: 0 10px 25px -5px rgb(0 0 0 / 0.6);
+}
+
+@theme {
+  --font-sans: "DM Sans Variable", "Noto Sans Malayalam Variable", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-serif: "Shippori Mincho", "Noto Sans Malayalam Variable", Georgia, serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --font-ml: "Noto Sans Malayalam Variable", "Noto Sans Malayalam", "DM Sans Variable", Kartika, sans-serif;
+
+  --color-surface: var(--md-sys-color-surface);
+  --color-on-surface: var(--md-sys-color-on-surface);
+  --color-on-surface-variant: var(--md-sys-color-on-surface-variant);
+  --color-surface-container-lowest: var(--md-sys-color-surface-container-lowest);
+  --color-surface-container-low: var(--md-sys-color-surface-container-low);
+  --color-surface-container: var(--md-sys-color-surface-container);
+  --color-surface-container-high: var(--md-sys-color-surface-container-high);
+  --color-surface-container-highest: var(--md-sys-color-surface-container-highest);
+
+  --color-primary: var(--md-sys-color-primary);
+  --color-on-primary: var(--md-sys-color-on-primary);
+  --color-primary-container: var(--md-sys-color-primary-container);
+  --color-on-primary-container: var(--md-sys-color-on-primary-container);
+  --color-secondary: var(--md-sys-color-secondary);
+  --color-on-secondary: var(--md-sys-color-on-secondary);
+  --color-secondary-container: var(--md-sys-color-secondary-container);
+  --color-on-secondary-container: var(--md-sys-color-on-secondary-container);
+  --color-outline: var(--md-sys-color-outline);
+  --color-outline-variant: var(--md-sys-color-outline-variant);
+
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 10px;
+  --radius-2xl: 12px;
+  --radius-3xl: 16px;
+  --radius-full: 9999px;
+
+  --ease-calm: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    background-color: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
+    -webkit-text-size-adjust: 100%;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+  body {
+    margin: 0;
+    background-color: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overscroll-behavior-y: none;
+  }
+  :focus-visible {
+    outline: 2px solid var(--md-sys-color-primary);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+  ::selection {
+    background: color-mix(in srgb, var(--md-sys-color-primary) 20%, transparent);
+  }
+  button, [role="button"], a {
+    -webkit-tap-highlight-color: transparent;
+  }
+  hr {
+    border: 0;
+    border-top: 1px solid var(--md-sys-color-outline-variant);
+  }
+
+  :lang(ml), .ml {
+    font-family: var(--font-ml);
+    line-height: 1.6;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+}
+
+/* ---------- Typography & Utility Scale ---------- */
+@layer components {
+  .t-hero    { font-family: var(--font-sans); font-weight: 700; font-size: clamp(1.75rem, 1.25rem + 1.5vw, 2.25rem); line-height: 1.2; letter-spacing: -0.02em; }
+  .t-display { font-family: var(--font-sans); font-weight: 600; font-size: clamp(1.25rem, 1.1rem + 0.75vw, 1.625rem); line-height: 1.3; letter-spacing: -0.015em; }
+  .t-title   { font-family: var(--font-sans); font-weight: 600; font-size: 1rem; line-height: 1.4; letter-spacing: -0.005em; }
+  .t-body    { font-size: 0.875rem; line-height: 1.5; color: var(--md-sys-color-on-surface); }
+  .t-small   { font-size: 0.8125rem; line-height: 1.4; color: var(--md-sys-color-on-surface-variant); }
+  .t-label   { font-size: 0.6875rem; line-height: 1.2; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--md-sys-color-on-surface-variant); }
+  .t-code    { font-family: var(--font-mono); font-weight: 600; font-size: 0.8125rem; letter-spacing: 0.02em; }
+  .t-meta    { font-size: 0.75rem; line-height: 1.4; color: var(--md-sys-color-on-surface-variant); font-variant-numeric: tabular-nums; }
+  .t-num     { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-weight: 500; }
+
+  /* Input fields */
+  .input {
+    display: block;
+    width: 100%;
+    min-height: 2.5rem;
+    border-radius: var(--radius-md);
+    background-color: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
+    border: 1px solid var(--md-sys-color-outline-variant);
+    padding: 0 0.875rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+  }
+  .input::placeholder { color: var(--md-sys-color-outline); }
+  .input:hover:not(:disabled) {
+    border-color: var(--md-sys-color-outline);
+  }
+  .input:focus {
+    outline: none;
+    border-color: var(--md-sys-color-primary);
+  }
+  .input:disabled { opacity: 0.4; cursor: not-allowed; }
+}
+
+/* Minimal animations */
+@keyframes ranga-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes ranga-pop { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
+.anim-fade { animation: ranga-fade 0.15s ease both; }
+.anim-pop  { animation: ranga-pop 0.15s ease both; }
+
+.skeleton {
+  background-color: var(--md-sys-color-surface-container);
+  border-radius: var(--radius-sm);
+  animation: pulse 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+.pb-safe { padding-bottom: max(0.5rem, env(safe-area-inset-bottom)); }
+.pt-safe { padding-top: env(safe-area-inset-top); }
