@@ -9,6 +9,7 @@ const BG = "#0a0c10"; // modern neutral dark — matches --md-sys-color-surface 
 const { version } = JSON.parse(readFileSync(new URL("./package.json", import.meta.url), "utf-8")) as { version: string };
 
 export default defineConfig({
+  base: "/ranga/",
   define: { __APP_VERSION__: JSON.stringify(version) },
   test: { include: ["src/**/*.test.{ts,tsx}"], environment: "jsdom", globals: true, setupFiles: ["./src/test/setup.ts"] },
   plugins: [
@@ -20,13 +21,13 @@ export default defineConfig({
       registerType: "prompt",
       includeAssets: ["icons/apple-touch-icon.png", "icons/favicon-64.png"],
       manifest: {
-        id: "/",
+        id: "/ranga/",
         name: "RANGA",
         short_name: "RANGA",
         description: "KTU academic resources, all in one place.",
         lang: "en",
-        start_url: "/",
-        scope: "/",
+        start_url: "/ranga/",
+        scope: "/ranga/",
         display: "standalone",
         orientation: "portrait-primary",
         theme_color: BG,
@@ -42,7 +43,7 @@ export default defineConfig({
         // App shell + static assets only (includes the offline meme so the offline screen works).
         globPatterns: ["**/*.{js,css,html,svg,png,webp,woff2,webmanifest}"],
         maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
-        navigateFallback: "/index.html",
+        navigateFallback: "/ranga/index.html",
         cleanupOutdatedCaches: true,
         runtimeCaching: [
           // Catalogue data, the signed-URL function and signed storage URLs are never cached:

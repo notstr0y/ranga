@@ -12,7 +12,7 @@ createRoot(document.getElementById("root")!).render(
     <SettingsProvider>
       <ConnectivityProvider>
         <DeveloperProvider>
-          <BrowserRouter>
+          <BrowserRouter basename={import.meta.env.BASE_URL}>
             <App />
           </BrowserRouter>
         </DeveloperProvider>
