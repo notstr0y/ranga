@@ -39,11 +39,11 @@ export default defineConfig({
           { src: "icons/icon-maskable-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
         ],
         screenshots: [
-  { src: "screenshots/home-mobile.jpg", sizes: "1080x1920", type: "image/jpeg", form_factor: "narrow", label: "Home" },
-  { src: "screenshots/home-with-banner-dialouge-box-mobile.jpg", sizes: "1080x1920", type: "image/jpeg", form_factor: "narrow", label: "Community announcement" },
-  { src: "screenshots/light-mode-settings-mobile.jpg", sizes: "1080x1920", type: "image/jpeg", form_factor: "narrow", label: "Settings" },
-  { src: "screenshots/offline-mobile.jpg", sizes: "1080x1920", type: "image/jpeg", form_factor: "narrow", label: "Offline screen" },
-  { src: "screenshots/offline-with-gif-mobile.jpg", sizes: "1080x1920", type: "image/jpeg", form_factor: "narrow", label: "Offline screen" },
+  { src: "screenshots/home-mobile.jpg", sizes: "540x1170", type: "image/jpeg", form_factor: "narrow", label: "Home" },
+  { src: "screenshots/home-with-banner-dialouge-box-mobile.jpg", sizes: "540x1170", type: "image/jpeg", form_factor: "narrow", label: "Community announcement" },
+  { src: "screenshots/light-mode-settings-mobile.jpg", sizes: "540x1170", type: "image/jpeg", form_factor: "narrow", label: "Settings" },
+  { src: "screenshots/offline-mobile.jpg", sizes: "540x1170", type: "image/jpeg", form_factor: "narrow", label: "Offline screen" },
+  { src: "screenshots/offline-with-gif-mobile.jpg", sizes: "540x1170", type: "image/jpeg", form_factor: "narrow", label: "Offline screen (reaction)" },
 ],
       },
       workbox: {
