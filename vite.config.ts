@@ -22,8 +22,8 @@ export default defineConfig({
       includeAssets: ["icons/apple-touch-icon.png", "icons/favicon-64.png"],
       manifest: {
         id: "/ranga/",
-        name: "RANGA",
-        short_name: "RANGA",
+        name: "ranga",
+        short_name: "ranga",
         description: "KTU academic resources, all in one place.",
         lang: "en",
         start_url: "/ranga/",
