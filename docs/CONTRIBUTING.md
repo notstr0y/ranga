@@ -10,7 +10,7 @@ Thanks for helping improve Ranga.
 
 ## Testing
 
-Before submitting, make sure these pass (see [DEVELOPMENT.md](DEVELOPMENT.md)):
+Before submitting, make sure these pass (see [DEVELOPMENT.md](/docs/DEVELOPMENT.md)):
 
 ```
 npm run lint
