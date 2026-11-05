@@ -39,16 +39,36 @@ const s3 = new S3Client({
   forcePathStyle: true,
   credentials: { accessKeyId: Deno.env.get("S3_ACCESS_KEY_ID")!, secretAccessKey: Deno.env.get("S3_SECRET_ACCESS_KEY")! },
 });
-const db = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!, {
-  auth: { persistSession: false, autoRefreshToken: false },
-});
+const db = createClient(
+  Deno.env.get("SUPABASE_URL")!,
+  Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
+  {
+    auth: { persistSession: false, autoRefreshToken: false },
+  },
+);
 
 async function requireDeveloper(req: Request): Promise<string | null> {
   const token = (req.headers.get("authorization") ?? "").replace(/^Bearer\s+/i, "");
   if (!token) return null;
-  const { data: u, error } = await db.auth.getUser(token);
-  if (error || !u.user) return null;
-  const { data } = await db.from("app_developers").select("user_id").eq("user_id", u.user.id).maybeSingle();
+
+  const { data: u, error: authError } = await db.auth.getUser(token);
+
+  if (authError || !u.user) {
+    console.error("Developer auth failed:", authError?.message);
+    return null;
+  }
+
+  const { data, error: developerError } = await db
+    .from("app_developers")
+    .select("user_id")
+    .eq("user_id", u.user.id)
+    .maybeSingle();
+
+  if (developerError) {
+    console.error("Developer lookup failed:", developerError.message);
+    return null;
+  }
+
   return data ? u.user.id : null;
 }
 
@@ -103,8 +123,21 @@ Deno.serve(async (req) => {
   if (!hasPdfSignature(bytes)) return refuse(req, "That file isn't a valid PDF.");
 
   // the subject must exist
-  const { data: subject } = await db.from("subjects").select("id").eq("id", f.subjectId).maybeSingle();
-  if (!subject) return refuse(req, "That subject no longer exists.", 404);
+  const { data: subject, error: subjectError } = await db
+  .from("subjects")
+  .select("id")
+  .eq("id", f.subjectId)
+  .maybeSingle();
+
+if (subjectError) {
+  console.error("Subject lookup failed:", subjectError.message);
+  return refuse(req, "Couldn't verify the selected subject.", 500);
+}
+
+if (!subject) {
+  console.error("Subject not found:", f.subjectId);
+  return refuse(req, "That subject no longer exists. Refresh the page and select it again.", 404);
+}
 
   // retry / duplicate protection
   const hash = await sha256Hex(bytes);

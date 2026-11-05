@@ -17,3 +17,4 @@ supabase/.branches/
 .claude/
 .DS_Store
 npm-debug.log*
+.env.s3
